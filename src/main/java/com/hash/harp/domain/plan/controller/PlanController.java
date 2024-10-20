@@ -2,6 +2,7 @@ package com.hash.harp.domain.plan.controller;
 
 import com.hash.harp.domain.plan.controller.dto.request.HeaderRequestDto;
 import com.hash.harp.domain.plan.controller.dto.request.PlanRequestDto;
+import com.hash.harp.domain.plan.controller.dto.response.HeaderResponseDto;
 import com.hash.harp.domain.plan.controller.dto.response.PlanResponseDto;
 import com.hash.harp.domain.plan.service.CommandPlanService;
 import com.hash.harp.domain.plan.service.QueryPlanService;
@@ -52,6 +53,14 @@ public class PlanController {
     @GetMapping("/day/{headerId}")
     private List<PlanResponseDto> readPlan(@PathVariable(name = "headerId") Long headerId) {
         return queryPlanService.readPlan(headerId);
+    }
+
+    @GetMapping("/header")
+    private List<HeaderResponseDto> readHeader(HttpServletRequest request) {
+        String token = request.getHeader("Authorization");
+        Long userId = jwtService.getUserIdFromToken(token);
+
+        return queryPlanService.readAllHeader(userId);
     }
 
     @PutMapping("/S3/{headerId}")

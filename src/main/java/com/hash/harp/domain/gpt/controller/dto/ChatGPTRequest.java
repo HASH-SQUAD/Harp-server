@@ -1,4 +1,4 @@
-package com.hash.harp.domain.chatGpt.controller.dto;
+package com.hash.harp.domain.gpt.controller.dto;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;

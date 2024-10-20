@@ -1,8 +1,8 @@
-package com.hash.harp.domain.chatGpt.controller;
+package com.hash.harp.domain.gpt.controller;
 
 
-import com.hash.harp.domain.chatGpt.controller.dto.ChatGPTRequest;
-import com.hash.harp.domain.chatGpt.controller.dto.ChatGPTResponse;
+import com.hash.harp.domain.gpt.controller.dto.ChatGPTRequest;
+import com.hash.harp.domain.gpt.controller.dto.ChatGPTResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;

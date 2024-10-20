@@ -1,6 +1,5 @@
-package com.hash.harp.domain.chatGpt.controller.dto;
+package com.hash.harp.domain.gpt.controller.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;

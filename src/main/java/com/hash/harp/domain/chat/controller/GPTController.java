@@ -1,8 +1,8 @@
-package com.hash.harp.domain.gpt.controller;
+package com.hash.harp.domain.chat.controller;
 
 
-import com.hash.harp.domain.gpt.controller.dto.ChatGPTRequest;
-import com.hash.harp.domain.gpt.controller.dto.ChatGPTResponse;
+import com.hash.harp.domain.chat.controller.dto.request.ChatGPTRequest;
+import com.hash.harp.domain.chat.controller.dto.response.ChatGPTResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +22,7 @@ public class GPTController {
 
     private final RestTemplate restTemplate;
 
-    @GetMapping("/chat")
+    @PostMapping("/chat")
     public String chat(@RequestParam("prompt") String prompt){
 
         ChatGPTRequest request = new ChatGPTRequest(

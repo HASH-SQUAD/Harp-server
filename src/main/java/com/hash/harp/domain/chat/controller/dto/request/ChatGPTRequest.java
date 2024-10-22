@@ -1,4 +1,4 @@
-package com.hash.harp.domain.gpt.controller.dto;
+package com.hash.harp.domain.chat.controller.dto.request;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
@@ -13,7 +13,7 @@ public class ChatGPTRequest {
 
     private String model;
 
-    private List<Message> messages;
+    private List<GPTMessage> messages;
 
     private Double temperature;
 
@@ -32,7 +32,7 @@ public class ChatGPTRequest {
     {
         this.model = model;
         this.messages = new ArrayList<>();
-        this.messages.add(new Message("user", prompt));
+        this.messages.add(new GPTMessage("user", prompt));
         this.temperature = temperature;
         this.maxTokens = maxTokens;
         this.topP = topP;

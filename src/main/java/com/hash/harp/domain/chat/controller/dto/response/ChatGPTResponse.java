@@ -1,5 +1,6 @@
-package com.hash.harp.domain.gpt.controller.dto;
+package com.hash.harp.domain.chat.controller.dto.response;
 
+import com.hash.harp.domain.chat.controller.dto.request.GPTMessage;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,7 +18,7 @@ public class ChatGPTResponse {
     @AllArgsConstructor
     public static class Choice {
         private int index;
-        private Message message;
+        private GPTMessage message;
 
     }
 }

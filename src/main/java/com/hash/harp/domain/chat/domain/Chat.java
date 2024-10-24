@@ -1,5 +1,6 @@
 package com.hash.harp.domain.chat.domain;
 
+import com.hash.harp.domain.chat.controller.dto.request.chat.ChatRequest;
 import com.hash.harp.domain.chat.domain.type.Type;
 import jakarta.persistence.*;
 import lombok.*;
@@ -32,5 +33,9 @@ public class Chat {
         this.chat = chat;
         this.updateDateTime = updateDateTime;
         this.type = type;
+    }
+
+    public void updateChat(String chat){
+        this.chat = chat;
     }
 }

@@ -1,4 +1,4 @@
-package com.hash.harp.domain.chat.controller.dto.request;
+package com.hash.harp.domain.chat.controller.dto.request.GPT;
 
 import lombok.Builder;
 import lombok.Data;

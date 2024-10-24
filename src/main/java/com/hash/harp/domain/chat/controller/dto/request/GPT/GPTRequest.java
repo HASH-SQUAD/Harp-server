@@ -1,4 +1,4 @@
-package com.hash.harp.domain.chat.controller.dto.request;
+package com.hash.harp.domain.chat.controller.dto.request.GPT;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
@@ -9,7 +9,7 @@ import java.util.List;
 
 @Data
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
-public class ChatGPTRequest {
+public class GPTRequest {
 
     private String model;
 
@@ -25,7 +25,7 @@ public class ChatGPTRequest {
 
     private int presencePenalty;
 
-    public ChatGPTRequest
+    public GPTRequest
             (
                     String model, String prompt, Double temperature, int maxTokens, int topP, int frequencyPenalty, int presencePenalty
             )

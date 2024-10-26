@@ -20,7 +20,7 @@ public class JwtAuth {
         Claims claims = jwtUtil.getJwt(token).getBody();
 
         if (isNotAccessToken(token)) {
-            throw new IllegalArgumentException("유효하지 않은 토큰입니다.");
+            throw new IllegalArgumentException("토큰이 입력되지 않았습니다.");
         }
 
         UserDetails userDetails = authDetailsService.loadUserByUsername(claims.get(JwtConstants.AUTH_ID.message).toString());

@@ -5,15 +5,33 @@ import com.hash.harp.domain.survey.domain.type.Food;
 import com.hash.harp.domain.survey.domain.type.Mbti;
 import com.hash.harp.domain.survey.domain.type.Travel;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 public record SurveyResponseDto(
         Long id,
         Long userId,
-        Food food,
+        List<String> food,
         Mbti mbti,
-        Travel travel,
+        List<String> travel,
         String content
 ) {
     public static SurveyResponseDto from(final Survey survey) {
-        return new SurveyResponseDto(survey.getId(), survey.getUserId(), survey.getFood(), survey.getMbti(), survey.getTravel(), survey.getContent());
+        List<String> travelList = survey.getTravel().stream()
+                .map(Enum::name)
+                .collect(Collectors.toList());
+
+        List<String> foodList = survey.getFood().stream()
+                .map(Enum::name)
+                .collect(Collectors.toList());
+
+        return new SurveyResponseDto(
+                survey.getId(),
+                survey.getUserId(),
+                foodList,
+                survey.getMbti(),
+                travelList,
+                survey.getContent()
+        );
     }
 }

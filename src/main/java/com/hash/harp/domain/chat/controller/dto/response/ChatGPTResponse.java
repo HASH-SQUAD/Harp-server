@@ -1,4 +1,4 @@
-package com.hash.harp.domain.chatGpt.controller.dto;
+package com.hash.harp.domain.chat.controller.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,17 +7,18 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class ChatGPTResponse {
+@NoArgsConstructor
+public class ChatGPTResponse{
     private List<Choice> choices;
 
     @Data
-    @NoArgsConstructor
     @AllArgsConstructor
+    @NoArgsConstructor
     public static class Choice {
-        private int index;
-        private Message message;
 
+    private int index;
+
+    private Message message;
     }
 }

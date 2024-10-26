@@ -1,20 +1,19 @@
-package com.hash.harp.domain.chatGpt.controller.dto;
+package com.hash.harp.domain.chat.controller.dto.request.GPT;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class Message {
+public class GPTMessage {
 
     private String role;
 
     private String content;
 
     @Builder
-    public Message(String role, String content) {
+    public GPTMessage(String role, String content) {
         this.role = role;
         this.content = content;
     }

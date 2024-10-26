@@ -7,6 +7,10 @@ import com.hash.harp.domain.user.domain.User;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 @Entity
 @Getter
 @AllArgsConstructor
@@ -19,11 +23,17 @@ public class Survey {
     @Column(nullable = true, length = 200)
     private String content;
 
+    @ElementCollection(targetClass = Travel.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "survey_travel", joinColumns = @JoinColumn(name = "survey_id"))
+    @Column(name = "travel")
     @Enumerated(EnumType.STRING)
-    private Travel travel;
+    private List<Travel> travel;
 
+    @ElementCollection(targetClass = Food.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "survey_food", joinColumns = @JoinColumn(name = "survey_id"))
+    @Column(name = "food")
     @Enumerated(EnumType.STRING)
-    private Food food;
+    private List<Food> food;
 
     @Enumerated(EnumType.STRING)
     private Mbti mbti;
@@ -32,7 +42,7 @@ public class Survey {
     private Long userId;
 
     @Builder
-    public Survey(Travel travel, Food food, Mbti mbti, String content, Long userId) {
+    public Survey(List<Travel> travel, List<Food> food, Mbti mbti, String content, Long userId) {
         this.travel = travel;
         this.food = food;
         this.mbti = mbti;

@@ -23,8 +23,8 @@ public class CommandSurveyService {
 
         Survey survey = Survey.builder()
                 .userId(user.getId())
-                .travel(surveyRequestDto.travel())
-                .food(surveyRequestDto.food())
+                .travel(surveyRequestDto.getTravelAsEnum())
+                .food(surveyRequestDto.getFoodAsEnum())
                 .mbti(surveyRequestDto.mbti())
                 .content(surveyRequestDto.content())
                 .build();

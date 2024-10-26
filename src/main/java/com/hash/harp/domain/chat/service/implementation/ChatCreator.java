@@ -43,7 +43,7 @@ public class ChatCreator {
 
     ObjectMapper objectMapper = new ObjectMapper();
 
-    public AnswerResponse processChat(ChatRequest chatRequest, Long userId, Long chatId,String endpoint) throws JsonProcessingException {
+    public AnswerResponse processChat(ChatRequest chatRequest, Long userId, Long chatId, String endpoint) throws JsonProcessingException {
         Optional<Chat> chat = chatRepository.findById(chatId);
 
         if(chat.isPresent()) {

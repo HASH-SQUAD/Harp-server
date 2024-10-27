@@ -1,8 +1,7 @@
 package com.hash.harp.domain.post.service;
 
-
-import com.hash.harp.domain.plan.controller.dto.response.HeaderResponseDto;
 import com.hash.harp.domain.post.controller.dto.PostListResponse;
+import com.hash.harp.domain.post.controller.dto.PostResponse;
 import com.hash.harp.domain.post.service.implementation.PostReader;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,5 +15,9 @@ public class QueryPostService {
 
     public List<PostListResponse> readAllPost() {
         return postReader.readAll();
+    }
+
+    public List<PostResponse> readPostById(Long postId) {
+        return postReader.readOne(postId);
     }
 }

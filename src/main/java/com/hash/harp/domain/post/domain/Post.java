@@ -44,7 +44,7 @@ public class Post {
         this.commentCount = 0;
     }
 
-    public void update(PostRequest request) {
+    public void updatePost(PostRequest request) {
         this.title = request.title();
         this.content = request.content();
         this.imgUrl = request.imgUrl();

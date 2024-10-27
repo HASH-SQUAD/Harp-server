@@ -10,7 +10,7 @@ import java.util.Map;
 
 @Getter
 @RequiredArgsConstructor
-public class PlanRequestDto {
+public class  PlanRequestDto {
     private Long headerId;
     private Map<String, List<ActivityDto>> dayMap = new HashMap<>();
 

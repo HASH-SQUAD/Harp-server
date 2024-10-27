@@ -31,6 +31,6 @@ public class ChatController {
         String token = request.getHeader("Authorization");
         Long userId = jwtService.getUserIdFromToken(token);
 
-        return commandChatService.proccessChat(chatRequest, userId, chatId, "/travel");
+        return commandChatService.proccessChat(chatRequest, userId, chatId, "/date");
     }
 }

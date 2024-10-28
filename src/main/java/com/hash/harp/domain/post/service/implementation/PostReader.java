@@ -2,6 +2,7 @@ package com.hash.harp.domain.post.service.implementation;
 
 import com.hash.harp.domain.post.controller.dto.PostListResponse;
 import com.hash.harp.domain.post.controller.dto.PostResponse;
+import com.hash.harp.domain.post.domain.Post;
 import com.hash.harp.domain.post.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,12 +19,11 @@ public class PostReader {
                 .toList();
     }
 
-    public List<PostResponse> readOne(Long postId) {
-        postRepository.getById(postId);
-
-        return postRepository.findById(postId).stream()
-                .map(PostResponse::of)
-                .toList();
+    public Post readOne(Long postId) {
+        return postRepository.getById(postId);
     }
 
+    public Post read(Long postId) {
+        return postRepository.getById(postId);
+    }
 }

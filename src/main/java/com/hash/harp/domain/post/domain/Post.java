@@ -3,6 +3,7 @@ package com.hash.harp.domain.post.domain;
 import com.hash.harp.domain.post.controller.dto.PostRequest;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 import org.springframework.data.annotation.CreatedDate;
 
 import java.time.LocalDateTime;
@@ -25,7 +26,11 @@ public class Post {
 
     private String imgUrl;
 
-    private Integer commentCount;
+    @Column(nullable = false)
+    private Long likeCount = 0L;
+
+    @Column(nullable = false)
+    private Long commentCount = 0L;
 
     @CreatedDate
     private LocalDateTime createTime;
@@ -35,13 +40,12 @@ public class Post {
 
 
     @Builder
-    public Post(String title, String content, String imgUrl, Long writer, Integer commentCount, LocalDateTime createTime) {
+    public Post(String title, String content, String imgUrl, LocalDateTime createTime, Long writer) {
         this.title = title;
         this.content = content;
         this.imgUrl = imgUrl;
         this.createTime = createTime;
         this.writer = writer;
-        this.commentCount = 0;
     }
 
     public void updatePost(PostRequest request) {
@@ -61,5 +65,13 @@ public class Post {
 
     public void decreaseCommentCount() {
         this.commentCount--;
+    }
+
+    public void increaseLikeCount() {
+        this.likeCount++;
+    }
+
+    public void decreaseLikeCount() {
+        this.likeCount--;
     }
 }

@@ -1,8 +1,9 @@
 package com.hash.harp.domain.post.controller;
 
+import com.hash.harp.domain.auth.service.implementation.AuthReader;
 import com.hash.harp.domain.post.controller.dto.PostListResponse;
 import com.hash.harp.domain.post.controller.dto.PostRequest;
-import com.hash.harp.domain.post.controller.dto.PostResponse;
+import com.hash.harp.domain.post.domain.Post;
 import com.hash.harp.domain.post.service.CommandPostService;
 import com.hash.harp.domain.post.service.QueryPostService;
 import com.hash.harp.global.jwt.service.JwtService;
@@ -21,6 +22,7 @@ public class PostController {
     private final CommandPostService commandPostService;
     private final QueryPostService queryPostService;
     private final JwtService jwtService;
+    private final AuthReader authReader;
 
     @PostMapping
     public ResponseEntity<String> create(HttpServletRequest request, @RequestBody PostRequest postRequest) {
@@ -43,13 +45,12 @@ public class PostController {
     }
 
     @GetMapping("/{postId}")
-    private List<PostResponse> read(@PathVariable Long postId) {
+    private Post read(@PathVariable Long postId) {
         return queryPostService.readPostById(postId);
     }
 
     @DeleteMapping("/{postId}")
-    private ResponseEntity<String> delete(@PathVariable Long postId) {
-        commandPostService.deletePost(postId);
-        return ResponseEntity.ok("성공적으로 삭제되었습니다.");
+    private void delete(@PathVariable Long postId) {
+        commandPostService.deletePost(postId, authReader.getCurrentUser());
     }
 }

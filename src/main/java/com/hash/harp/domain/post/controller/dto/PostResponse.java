@@ -19,7 +19,7 @@ public record PostResponse(
                 post.getTitle(),
                 post.getContent(),
                 post.getImgUrl(),
-                post.getCommentCount(),
+                Math.toIntExact(post.getCommentCount()),
                 post.getCreateTime(),
                 post.getWriter()
         );

@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class CommentCreater {
+public class CommentCreator {
     private final CommentRepository commentRepository;
 
     public void create(Comment comment, Post post, User writer, Comment parent) {

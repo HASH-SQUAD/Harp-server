@@ -1,7 +1,7 @@
 package com.hash.harp.domain.comment.service;
 
 import com.hash.harp.domain.comment.domain.Comment;
-import com.hash.harp.domain.comment.service.implementation.CommentCreater;
+import com.hash.harp.domain.comment.service.implementation.CommentCreator;
 import com.hash.harp.domain.comment.service.implementation.CommentDeleter;
 import com.hash.harp.domain.comment.service.implementation.CommentReader;
 import com.hash.harp.domain.comment.service.implementation.CommentValidater;
@@ -19,7 +19,7 @@ public class CommandCommentService {
 
     private final PostReader postReader;
     private final CommentReader commentReader;
-    private final CommentCreater commentCreator;
+    private final CommentCreator commentCreator;
     private final CommentValidater commentValidater;
     private final CommentDeleter commentDeleter;
 

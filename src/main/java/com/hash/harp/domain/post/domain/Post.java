@@ -3,7 +3,6 @@ package com.hash.harp.domain.post.domain;
 import com.hash.harp.domain.post.controller.dto.PostRequest;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.ColumnDefault;
 import org.springframework.data.annotation.CreatedDate;
 
 import java.time.LocalDateTime;
@@ -63,7 +62,7 @@ public class Post {
         this.commentCount++;
     }
 
-    public void decreaseCommentCount() {
+    public void decreaseCommentCount(long l) {
         this.commentCount--;
     }
 

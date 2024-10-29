@@ -1,5 +1,6 @@
 package com.hash.harp.domain.post.service;
 
+import com.hash.harp.domain.comment.service.implementation.CommentDeleter;
 import com.hash.harp.domain.like.service.implementation.LikeDeleter;
 import com.hash.harp.domain.post.controller.dto.PostRequest;
 import com.hash.harp.domain.post.domain.Post;
@@ -22,6 +23,7 @@ public class CommandPostService {
     private final PostDeleter postDeleter;
     private final PostReader postReader;
     private final LikeDeleter likeDeleter;
+    private final CommentDeleter commentDeleter;
 
     public void CreatePost(PostRequest request, Long userId) {
         postCreator.createPost(request, userId);
@@ -35,5 +37,6 @@ public class CommandPostService {
         Post post = postReader.read(id);
         postDeleter.deletePost(id);
         likeDeleter.deleteByPost(post);
+        commentDeleter.deleteByPost(post);
     }
 }

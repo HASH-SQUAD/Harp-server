@@ -26,9 +26,16 @@ public class CommentController {
                 request.parent());
     }
 
-    @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{commentId}")
     public void deleteComment(@PathVariable(name = "commentId") Long commentId) {
         commandCommentService.deleteComment(commentId, authReader.getCurrentUser());
+    }
+
+    @PutMapping("/{commentId}")
+    public void updateComment(
+            @PathVariable(name = "ccommentId") Long commentId,
+            @RequestBody CommentRequest request
+    ) {
+        commandCommentService.updateComment(commentId, request.toEntity(), authReader.getCurrentUser());
     }
 }

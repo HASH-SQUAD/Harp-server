@@ -2,6 +2,7 @@ package com.hash.harp.domain.plan.controller;
 
 import com.hash.harp.domain.plan.controller.dto.request.HeaderRequestDto;
 import com.hash.harp.domain.plan.controller.dto.request.PlanRequestDto;
+import com.hash.harp.domain.plan.controller.dto.response.HeaderCreateResponse;
 import com.hash.harp.domain.plan.controller.dto.response.HeaderResponseDto;
 import com.hash.harp.domain.plan.controller.dto.response.PlanResponseDto;
 import com.hash.harp.domain.plan.service.CommandPlanService;
@@ -25,16 +26,16 @@ public class PlanController {
     private final JwtService jwtService;
 
     @PostMapping("/header")
-    private void createHeader(HttpServletRequest request, @RequestBody HeaderRequestDto headerRequestDto) {
+    private HeaderCreateResponse createHeader(HttpServletRequest request, @RequestBody HeaderRequestDto headerRequestDto) {
         String token = request.getHeader("Authorization");
         Long userId = jwtService.getUserIdFromToken(token);
 
-        commandPlanService.createHeader(headerRequestDto, userId);
+        return commandPlanService.createHeader(headerRequestDto, userId);
     }
 
-    @PostMapping("/day")
-    private void createPlan(@RequestBody PlanRequestDto planRequestDto) {
-        commandPlanService.creatPlan(planRequestDto);
+    @PostMapping("/day/{headerId}")
+    private void createPlan(@RequestBody PlanRequestDto planRequestDto, @PathVariable Long headerId) {
+        commandPlanService.creatPlan(planRequestDto, headerId);
     }
 
     @PutMapping("/day/{headerId}")

@@ -19,13 +19,12 @@ public class PlanCreator {
 
     private final PlanRepository planRepository;
 
-    public void createPlan(PlanRequestDto planRequestDto) {
-        Long headerId = Long.valueOf(planRequestDto.getHeaderId());
+    public void createPlan(PlanRequestDto planRequestDto, Long headerId) {
 
-        Map<String, List<PlanRequestDto.ActivityDto>> dayMap = planRequestDto.getDayMap();
+        Map<String, List<PlanRequestDto.ActivityDto>> plans = planRequestDto.getPlans();
 
-        if (dayMap != null) {
-            dayMap.forEach((day, activities) -> {
+        if (plans != null) {
+            plans.forEach((day, activities) -> {
                 activities.forEach(activityDto -> {
                     Plan plan = Plan.builder()
                             .headerId(headerId)

@@ -11,8 +11,7 @@ import java.util.Map;
 @Getter
 @RequiredArgsConstructor
 public class  PlanRequestDto {
-    private Long headerId;
-    private Map<String, List<ActivityDto>> dayMap = new HashMap<>();
+    private Map<String, List<ActivityDto>> plans = new HashMap<>();
 
     @Getter
     @NoArgsConstructor
@@ -23,9 +22,5 @@ public class  PlanRequestDto {
         private String location;
         private String placeUrl;
         private String content;
-    }
-
-    public void setHeaderId(Long headerId) {
-        this.headerId = headerId;
     }
 }

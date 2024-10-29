@@ -45,7 +45,7 @@ public class CommentController {
 
     @PutMapping("/{commentId}")
     public void updateComment(
-            @PathVariable(name = "ccommentId") Long commentId,
+            @PathVariable(name = "commentId") Long commentId,
             @RequestBody CommentRequest request
     ) {
         commandCommentService.updateComment(commentId, request.toEntity(), authReader.getCurrentUser());

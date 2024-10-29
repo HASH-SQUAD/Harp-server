@@ -27,4 +27,10 @@ public class CommentController {
         commandCommentService.createComment(postId, authReader.getCurrentUser(), request.toEntity(),
                 request.parent());
     }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping("/{commentId}")
+    public void deleteComment(@PathVariable(name = "commentId") Long commentId) {
+        commandCommentService.deleteComment(commentId, authReader.getCurrentUser());
+    }
 }

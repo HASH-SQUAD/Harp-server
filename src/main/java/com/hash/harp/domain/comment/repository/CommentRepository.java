@@ -15,6 +15,6 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
 
     default Comment getById(Long commentId) {
         return findById(commentId)
-                .orElseThrow(() -> new CommentNotFoundException("댓글을 찾을 수 없습니다."));
+                .orElseThrow(() -> new CommentNotFoundException());
     }
 }

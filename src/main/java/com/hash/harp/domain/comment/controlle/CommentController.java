@@ -27,8 +27,7 @@ public class CommentController {
             @PathVariable(name = "postId") Long postId,
             @RequestBody CommentRequest request
     ) {
-        commandCommentService.createComment(postId, authReader.getCurrentUser(), request.toEntity(),
-                request.parent());
+        commandCommentService.createComment(postId, authReader.getCurrentUser(), request.toEntity(), request.parent());
     }
 
     @DeleteMapping("/{commentId}")

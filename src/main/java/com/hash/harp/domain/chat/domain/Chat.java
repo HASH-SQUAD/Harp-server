@@ -1,6 +1,5 @@
 package com.hash.harp.domain.chat.domain;
 
-import com.hash.harp.domain.chat.controller.dto.request.chat.ChatRequest;
 import com.hash.harp.domain.chat.domain.type.Type;
 import jakarta.persistence.*;
 import lombok.*;

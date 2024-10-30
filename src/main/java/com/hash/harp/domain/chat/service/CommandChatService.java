@@ -2,7 +2,6 @@ package com.hash.harp.domain.chat.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.hash.harp.domain.chat.controller.dto.request.chat.ChatRequest;
-import com.hash.harp.domain.chat.controller.dto.response.AnswerResponse;
 import com.hash.harp.domain.chat.domain.type.Type;
 import com.hash.harp.domain.chat.exception.ChatCreationFailedException;
 import com.hash.harp.domain.chat.service.implementation.ChatCreator;
@@ -17,7 +16,7 @@ public class CommandChatService {
 
     private final ChatCreator chatCreator;
 
-    public AnswerResponse proccessChat(ChatRequest chatRequest, Long userId, Long chatId, String endpoint) throws JsonProcessingException {
+    public Object proccessChat(ChatRequest chatRequest, Long userId, Long chatId, String endpoint) throws JsonProcessingException {
         Type type = typeEndpoint(endpoint);
 
         return chatCreator.processChat(chatRequest, userId, chatId, String.valueOf(type));

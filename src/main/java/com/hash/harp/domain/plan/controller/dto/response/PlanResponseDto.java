@@ -6,7 +6,6 @@ import java.time.LocalTime;
 
 public record PlanResponseDto(
         Long id,
-        Long headerId,
         String day,
         LocalTime time,
         String activity,
@@ -18,7 +17,6 @@ public record PlanResponseDto(
     public static PlanResponseDto from(final Plan plan) {
         return new PlanResponseDto(
                 plan.getId(),
-                plan.getHeaderId(),
                 plan.getDay(),
                 plan.getTime(),
                 plan.getActivity(),

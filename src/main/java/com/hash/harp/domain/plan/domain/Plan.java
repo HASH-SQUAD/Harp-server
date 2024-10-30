@@ -47,8 +47,8 @@ public class Plan {
     }
 
     public void updatePlan(PlanRequestDto planRequestDto) {
-        this.day = planRequestDto.getDayMap().keySet().stream().findFirst().orElse(this.day);
-        this.activity = planRequestDto.getDayMap().get(this.day).get(0).getActivity();
-        this.time = LocalTime.parse(planRequestDto.getDayMap().get(this.day).get(0).getTime());
+        this.day = planRequestDto.getPlans().keySet().stream().findFirst().orElse(this.day);
+        this.activity = planRequestDto.getPlans().get(this.day).get(0).getActivity();
+        this.time = LocalTime.parse(planRequestDto.getPlans().get(this.day).get(0).getTime());
     }
 }

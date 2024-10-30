@@ -17,7 +17,7 @@ public class HeaderCreator {
 
     private final HeaderRepository headerRepository;
 
-    public void createHeader(HeaderRequestDto headerRequestDto, Long userId) {
+    public Header createHeader(HeaderRequestDto headerRequestDto, Long userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException(userId));
 
@@ -30,6 +30,6 @@ public class HeaderCreator {
                 .duration(headerRequestDto.duration())
                 .build();
 
-        headerRepository.save(header);
+        return headerRepository.save(header);
     }
 }

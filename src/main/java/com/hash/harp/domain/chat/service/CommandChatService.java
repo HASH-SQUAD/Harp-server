@@ -17,7 +17,7 @@ public class CommandChatService {
 
     private final ChatCreator chatCreator;
 
-    public AnswerResponse proccessChat(ChatRequest chatRequest, Long userId, Long chatId, String endpoint) throws JsonProcessingException {
+    public Object proccessChat(ChatRequest chatRequest, Long userId, Long chatId, String endpoint) throws JsonProcessingException {
         Type type = typeEndpoint(endpoint);
 
         return chatCreator.processChat(chatRequest, userId, chatId, String.valueOf(type));

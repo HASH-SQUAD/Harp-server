@@ -1,6 +1,8 @@
 package com.hash.harp.domain.chat.service.implementation;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hash.harp.domain.chat.controller.dto.request.GPT.GPTRequest;
 import com.hash.harp.domain.chat.controller.dto.request.chat.ChatRequest;
@@ -8,6 +10,8 @@ import com.hash.harp.domain.chat.controller.dto.response.chat.AnswerResponse;
 import com.hash.harp.domain.chat.controller.dto.response.ChatGPTResponse;
 import com.hash.harp.domain.chat.controller.dto.response.chat.Content;
 import com.hash.harp.domain.chat.controller.dto.response.chat.Text;
+import com.hash.harp.domain.chat.controller.dto.response.result.ResultResponse;
+import com.hash.harp.domain.chat.controller.dto.response.result.Schedule;
 import com.hash.harp.domain.chat.domain.Chat;
 import com.hash.harp.domain.chat.domain.type.Type;
 import com.hash.harp.domain.chat.repository.ChatRepository;
@@ -21,7 +25,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDateTime;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -43,7 +49,7 @@ public class ChatCreator {
 
     ObjectMapper objectMapper = new ObjectMapper();
 
-    public AnswerResponse processChat(ChatRequest chatRequest, Long userId, Long chatId, String endpoint) throws JsonProcessingException {
+    public Object processChat(ChatRequest chatRequest, Long userId, Long chatId, String endpoint) throws JsonProcessingException {
         Optional<Chat> chat = chatRepository.findById(chatId);
 
         if (chat.isPresent()) {
@@ -55,18 +61,18 @@ public class ChatCreator {
         return processNewChat(chatRequest, userId, endpoint, baseJson);
     }
 
-    private AnswerResponse processAddChat(ChatRequest chatRequest, Chat chat) throws JsonProcessingException {
+    private Object processAddChat(ChatRequest chatRequest, Chat chat) throws JsonProcessingException {
         String updateUserJson = chat.getChat() + objectMapper.writeValueAsString(chatRequest);
-        AnswerResponse answerResponse = requestGPT(updateUserJson);
+        Object answerResponse = requestGPT(updateUserJson);
 
         chat.updateChat(updateUserJson + "," + objectMapper.writeValueAsString(answerResponse));
 
         return answerResponse;
     }
 
-    private AnswerResponse processNewChat(ChatRequest chatRequest, Long userId, String endpoint, String baseJson) throws JsonProcessingException {
+    private Object processNewChat(ChatRequest chatRequest, Long userId, String endpoint, String baseJson) throws JsonProcessingException {
         String userJson = baseJson + objectMapper.writeValueAsString(chatRequest);
-        AnswerResponse answerResponse = requestGPT(userJson);
+        Object answerResponse = requestGPT(userJson);
 
         createChat(userJson + "," + objectMapper.writeValueAsString(answerResponse), userId, endpoint);
 
@@ -100,7 +106,7 @@ public class ChatCreator {
         return chatRepository.save(chat);
     }
 
-    public AnswerResponse requestGPT(String userJson) throws JsonProcessingException {
+    public Object requestGPT(String userJson) throws JsonProcessingException {
         GPTRequest gptRequest = new GPTRequest(
                 model, userJson + "] }", 0.40, 15000, 1, 0, 0
         );
@@ -116,8 +122,30 @@ public class ChatCreator {
         if (content.contains("```json") || content.contains("```")) {
             content = content.replace("```json", "").replace("```", "").trim();
         }
-        Text text = objectMapper.readValue(content, Text.class);
 
-        return new AnswerResponse(gptResponse.getChoices().get(0).getMessage().role(), List.of(new Content("json", text)));
+        try {
+            Text text = objectMapper.readValue(content, Text.class);
+            return new AnswerResponse(gptResponse.getChoices().get(0).getMessage().role(), List.of(new Content("json", text)));
+        } catch (JsonProcessingException e) {
+            JsonNode jsonNode = objectMapper.readTree(content);
+
+            Map<String, List<Schedule>> days = new LinkedHashMap<>();
+            jsonNode.fieldNames().forEachRemaining(fieldName -> {
+                if (fieldName.startsWith("day")) {
+                    List<Schedule> schedules = objectMapper.convertValue(
+                            jsonNode.get(fieldName), new TypeReference<>() {}
+                    );
+                    days.put(fieldName, schedules);
+                }
+            });
+
+            List<String> tips = objectMapper.convertValue(
+                    jsonNode.path("tips"),
+                    new TypeReference<>() {}
+            );
+
+            return new ResultResponse(gptResponse.getChoices().get(0).getMessage().role(), days, tips);
+        }
     }
+
 }

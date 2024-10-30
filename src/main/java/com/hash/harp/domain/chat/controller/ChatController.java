@@ -19,7 +19,7 @@ public class ChatController {
     private final CommandChatService commandChatService;
 
     @PostMapping("/travel/{chatId}")
-    public AnswerResponse createChatTravel(HttpServletRequest request, @RequestBody ChatRequest chatRequest, @PathVariable Long chatId) throws JsonProcessingException {
+    public Object createChatTravel(HttpServletRequest request, @RequestBody ChatRequest chatRequest, @PathVariable Long chatId) throws JsonProcessingException {
         String token = request.getHeader("Authorization");
         Long userId = jwtService.getUserIdFromToken(token);
 
@@ -27,7 +27,7 @@ public class ChatController {
     }
 
     @PostMapping("/date/{chatId}")
-    public AnswerResponse createChatDate(HttpServletRequest request, @RequestBody ChatRequest chatRequest, @PathVariable Long chatId) throws JsonProcessingException {
+    public Object createChatDate(HttpServletRequest request, @RequestBody ChatRequest chatRequest, @PathVariable Long chatId) throws JsonProcessingException {
         String token = request.getHeader("Authorization");
         Long userId = jwtService.getUserIdFromToken(token);
 

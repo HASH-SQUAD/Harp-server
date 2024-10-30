@@ -1,6 +1,7 @@
 package com.hash.harp.domain.chat.service.implementation;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hash.harp.domain.chat.controller.dto.request.GPT.GPTRequest;
 import com.hash.harp.domain.chat.controller.dto.request.chat.ChatRequest;
@@ -102,16 +103,22 @@ public class ChatCreator {
     }
 
     public AnswerResponse requestGPT(String userJson) throws JsonProcessingException {
-        GPTRequest GPTRequest = new GPTRequest(
-                model, userJson + "] }",0.40,15000,1,0,0);
-
-        ChatGPTResponse gptResponse = restTemplate.postForObject(
-                apiUrl
-                , GPTRequest
-                , ChatGPTResponse.class
+        GPTRequest gptRequest = new GPTRequest(
+                model, userJson + "] }", 0.40, 15000, 1, 0, 0
         );
 
-        Text text = objectMapper.readValue(gptResponse.getChoices().get(0).getMessage().content(), Text.class);
+        ChatGPTResponse gptResponse = restTemplate.postForObject(
+                apiUrl,
+                gptRequest,
+                ChatGPTResponse.class
+        );
+
+        String content = gptResponse.getChoices().get(0).getMessage().content();
+
+        if (content.contains("```json") || content.contains("```")) {
+            content = content.replace("```json", "").replace("```", "").trim();
+        }
+        Text text = objectMapper.readValue(content, Text.class);
 
         return new AnswerResponse(gptResponse.getChoices().get(0).getMessage().role(), List.of(new Content("json", text)));
     }

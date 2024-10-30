@@ -1,17 +1,15 @@
 package com.hash.harp.domain.chat.service.implementation;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hash.harp.domain.chat.controller.dto.request.GPT.GPTRequest;
 import com.hash.harp.domain.chat.controller.dto.request.chat.ChatRequest;
-import com.hash.harp.domain.chat.controller.dto.response.AnswerResponse;
+import com.hash.harp.domain.chat.controller.dto.response.chat.AnswerResponse;
 import com.hash.harp.domain.chat.controller.dto.response.ChatGPTResponse;
-import com.hash.harp.domain.chat.controller.dto.response.Content;
-import com.hash.harp.domain.chat.controller.dto.response.Text;
+import com.hash.harp.domain.chat.controller.dto.response.chat.Content;
+import com.hash.harp.domain.chat.controller.dto.response.chat.Text;
 import com.hash.harp.domain.chat.domain.Chat;
 import com.hash.harp.domain.chat.domain.type.Type;
-import com.hash.harp.domain.chat.exception.ChatCreationFailedException;
 import com.hash.harp.domain.chat.repository.ChatRepository;
 import com.hash.harp.domain.user.domain.User;
 import com.hash.harp.domain.user.exception.UserNotFoundException;

@@ -2,7 +2,7 @@ package com.hash.harp.domain.chat.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.hash.harp.domain.chat.controller.dto.request.chat.ChatRequest;
-import com.hash.harp.domain.chat.controller.dto.response.AnswerResponse;
+import com.hash.harp.domain.chat.controller.dto.response.chat.AnswerResponse;
 import com.hash.harp.domain.chat.domain.type.Type;
 import com.hash.harp.domain.chat.exception.ChatCreationFailedException;
 import com.hash.harp.domain.chat.service.implementation.ChatCreator;

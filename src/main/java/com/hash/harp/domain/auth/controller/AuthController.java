@@ -5,10 +5,8 @@ import com.hash.harp.domain.auth.service.KakaoLoginService;
 import com.hash.harp.global.jwt.dto.TokenResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 
 @RestController
 @RequiredArgsConstructor
@@ -27,5 +25,4 @@ public class AuthController {
     public TokenResponse loginOfKakao(@Valid @RequestParam(name = "code") String code) {
         return kakaoLoginService.login(code);
     }
-
 }

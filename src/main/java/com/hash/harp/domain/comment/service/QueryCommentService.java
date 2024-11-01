@@ -26,16 +26,6 @@ public class QueryCommentService {
     private List<Comment> convertStructure(List<Comment> comments) {
         List<Comment> result = new ArrayList<>();
         Map<Long, Comment> map = new HashMap<>();
-//        comments.forEach(
-//                comment -> {
-//                    map.put(comment.getId(), comment);
-//                    if (comment.getParent() != null) {
-//                        map.get(comment.getParent().getId()).getChildren().add(comment);
-//                    } else {
-//                        result.add(comment);
-//                    }
-//                }
-//        );
 
         comments.forEach(comment -> {
             map.put(comment.getId(), comment);

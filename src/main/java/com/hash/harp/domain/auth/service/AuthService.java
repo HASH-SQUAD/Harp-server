@@ -13,7 +13,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class RefreshTokenService {
+public class AuthService {
 
     private final UserRepository userRepository;
 

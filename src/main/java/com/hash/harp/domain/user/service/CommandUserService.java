@@ -1,5 +1,6 @@
 package com.hash.harp.domain.user.service;
 
+import com.hash.harp.domain.auth.service.implementation.AuthReader;
 import com.hash.harp.domain.plan.controller.dto.request.HeaderRequestDto;
 import com.hash.harp.domain.plan.domain.Header;
 import com.hash.harp.domain.plan.exception.HeaderNotFoundException;
@@ -8,6 +9,7 @@ import com.hash.harp.domain.user.domain.User;
 import com.hash.harp.domain.user.exception.UserNotFoundException;
 import com.hash.harp.domain.user.repository.UserRepository;
 import com.hash.harp.domain.user.service.implementation.ProfileUpdater;
+import com.hash.harp.domain.user.service.implementation.UserDeleter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,8 +18,9 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 @Transactional
 public class CommandUserService {
+    private final UserDeleter userDeleter;
     private final UserRepository userRepository;
-
+    private final AuthReader authReader;
     private final ProfileUpdater profileUpdater;
 
     public void update(UserRequestDto userRequestDto, Long id) {
@@ -28,5 +31,9 @@ public class CommandUserService {
 
     public void updateProfile(UserRequestDto userRequestDto, Long id) {
         profileUpdater.updateProfile(userRequestDto, id);
+    }
+
+    public void delete(User id) {
+        userDeleter.delete(id);
     }
 }

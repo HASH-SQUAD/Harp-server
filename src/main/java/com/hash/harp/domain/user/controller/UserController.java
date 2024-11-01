@@ -1,5 +1,6 @@
 package com.hash.harp.domain.user.controller;
 
+import com.hash.harp.domain.auth.service.implementation.AuthReader;
 import com.hash.harp.domain.survey.controller.dto.SurveyResponseDto;
 import com.hash.harp.domain.user.controller.dto.UserRequestDto;
 import com.hash.harp.domain.user.controller.dto.UserResponseDto;
@@ -20,6 +21,7 @@ public class UserController {
     private final QueryUserService queryUserService;
 
     private final JwtService jwtService;
+    private final AuthReader authReader;
 
     @PutMapping
     public void updateUserInfo(HttpServletRequest request, @RequestBody UserRequestDto userRequestDto) {
@@ -43,5 +45,10 @@ public class UserController {
         Long userId = jwtService.getUserIdFromToken(token);
 
         return UserResponseDto.from(queryUserService.readById(userId));
+    }
+
+    @DeleteMapping
+    public void deleteById() {
+        commandUserService.delete(authReader.getCurrentUser());
     }
 }

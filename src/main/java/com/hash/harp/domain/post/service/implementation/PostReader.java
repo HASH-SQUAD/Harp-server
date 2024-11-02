@@ -1,8 +1,8 @@
 package com.hash.harp.domain.post.service.implementation;
 
 import com.hash.harp.domain.post.controller.dto.PostListResponse;
-import com.hash.harp.domain.post.controller.dto.PostResponse;
 import com.hash.harp.domain.post.domain.Post;
+import com.hash.harp.domain.post.exception.CanNotSearchException;
 import com.hash.harp.domain.post.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -25,5 +25,11 @@ public class PostReader {
 
     public Post read(Long postId) {
         return postRepository.getById(postId);
+    }
+
+    public List<PostListResponse> searchByKeyword(String keyword) {
+        return postRepository.findByTitleContainingOrContentContaining(keyword, keyword).stream()
+                .map(PostListResponse::of)
+                .toList();
     }
 }

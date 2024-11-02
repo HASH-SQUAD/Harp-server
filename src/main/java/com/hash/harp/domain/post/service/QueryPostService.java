@@ -20,4 +20,8 @@ public class QueryPostService {
     public Post readPostById(Long postId) {
         return postReader.readOne(postId);
     }
+
+    public List<PostListResponse> searchPosts(String keyword) {
+        return postReader.searchByKeyword(keyword);
+    }
 }

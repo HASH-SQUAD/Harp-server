@@ -37,14 +37,17 @@ public class Post {
     @Column(name = "user_id")
     private Long writer;
 
+    private String category;
+
 
     @Builder
-    public Post(String title, String content, String imgUrl, LocalDateTime createTime, Long writer) {
+    public Post(String title, String content, String imgUrl, LocalDateTime createTime, Long writer, String category) {
         this.title = title;
         this.content = content;
         this.imgUrl = imgUrl;
         this.createTime = createTime;
         this.writer = writer;
+        this.category = category;
     }
 
     public void updatePost(PostRequest request) {

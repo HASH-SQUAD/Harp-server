@@ -2,8 +2,9 @@ package com.hash.harp.domain.post.repository;
 
 import com.hash.harp.domain.post.domain.Post;
 import com.hash.harp.domain.post.exception.PostNotFoundException;
-import com.hash.harp.domain.user.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.List;
 
 public interface PostRepository extends JpaRepository<Post, Long> {
 
@@ -11,4 +12,6 @@ public interface PostRepository extends JpaRepository<Post, Long> {
         return findById(id)
                 .orElseThrow(() -> new PostNotFoundException(id));
     }
+
+    List<Post> findByTitleContainingOrContentContaining(String titleKeyword, String contentKeyword);
 }

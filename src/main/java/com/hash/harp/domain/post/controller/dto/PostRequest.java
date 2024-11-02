@@ -10,6 +10,8 @@ public record PostRequest (
 
         String content,
 
-        String imgUrl
+        String imgUrl,
+
+        String category
 ){
 }

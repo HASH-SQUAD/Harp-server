@@ -11,7 +11,8 @@ public record PostResponse(
         String imgUrl,
         Integer commentCount,
         LocalDateTime createTime,
-        Long writer
+        Long writer,
+        String category
 ) {
     public static PostResponse of(Post post) {
         return new PostResponse(
@@ -21,7 +22,8 @@ public record PostResponse(
                 post.getImgUrl(),
                 Math.toIntExact(post.getCommentCount()),
                 post.getCreateTime(),
-                post.getWriter()
+                post.getWriter(),
+                post.getCategory()
         );
     }
 }

@@ -8,13 +8,16 @@ public record PostListResponse(
         Long id,
         String title,
         Long writer,
-        LocalDateTime createTime
+        LocalDateTime createTime,
+        String category
 ) {
     public static PostListResponse of(Post post) {
         return new PostListResponse(
                 post.getId(),
                 post.getTitle(),
                 post.getWriter(),
-                post.getCreateTime());
+                post.getCreateTime(),
+                post.getCategory()
+        );
     }
 }

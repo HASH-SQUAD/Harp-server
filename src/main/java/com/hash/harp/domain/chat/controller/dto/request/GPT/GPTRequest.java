@@ -6,6 +6,7 @@ import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Data
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
@@ -25,6 +26,8 @@ public class GPTRequest {
 
     private int presencePenalty;
 
+    private Map<String, String> responseFormat;
+
     public GPTRequest
             (
                     String model, String prompt, Double temperature, int maxTokens, int topP, int frequencyPenalty, int presencePenalty
@@ -38,6 +41,6 @@ public class GPTRequest {
         this.topP = topP;
         this.frequencyPenalty = frequencyPenalty;
         this.presencePenalty = presencePenalty;
-
+        this.responseFormat = Map.of("type", "json_object");
     }
 }

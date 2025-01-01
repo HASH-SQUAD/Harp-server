@@ -7,9 +7,7 @@ import com.hash.harp.domain.chat.service.CommandChatService;
 import com.hash.harp.domain.chat.service.QueryChatService;
 import com.hash.harp.global.jwt.service.JwtService;
 import jakarta.servlet.http.HttpServletRequest;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.repository.cdi.Eager;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

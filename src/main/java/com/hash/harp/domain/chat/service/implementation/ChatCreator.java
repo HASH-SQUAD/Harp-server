@@ -21,7 +21,6 @@ import com.hash.harp.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDateTime;
@@ -32,7 +31,6 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-@Transactional
 public class ChatCreator {
 
     private final ChatRepository chatRepository;
@@ -62,7 +60,7 @@ public class ChatCreator {
     }
 
     private Object processAddChat(ChatRequest chatRequest, Chat chat) throws JsonProcessingException {
-        String updateUserJson = chat.getChat() + objectMapper.writeValueAsString(chatRequest);
+        String updateUserJson = chat.getChat() + "," + objectMapper.writeValueAsString(chatRequest);
         Object answerResponse = requestGPT(updateUserJson);
 
         chat.updateChat(updateUserJson + "," + objectMapper.writeValueAsString(answerResponse));
@@ -107,8 +105,12 @@ public class ChatCreator {
     }
 
     public Object requestGPT(String userJson) throws JsonProcessingException {
+        if (!userJson.trim().endsWith("] }")) {
+            userJson = userJson.trim() + "] }";
+        }
+
         GPTRequest gptRequest = new GPTRequest(
-                model, userJson + "] }", 0.40, 15000, 1, 0, 0
+                model, userJson + "] }", 0.4, 15000, 1, 0, 0
         );
 
         ChatGPTResponse gptResponse = restTemplate.postForObject(
@@ -127,6 +129,9 @@ public class ChatCreator {
             Text text = objectMapper.readValue(content, Text.class);
             return new AnswerResponse(gptResponse.getChoices().get(0).getMessage().role(), List.of(new Content("json", text)));
         } catch (JsonProcessingException e) {
+            System.out.println("Error: " + e.getMessage());
+            e.printStackTrace();
+
             JsonNode jsonNode = objectMapper.readTree(content);
 
             Map<String, List<Schedule>> days = new LinkedHashMap<>();

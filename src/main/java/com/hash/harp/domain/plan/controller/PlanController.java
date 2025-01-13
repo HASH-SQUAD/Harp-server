@@ -26,7 +26,7 @@ public class PlanController {
     private final JwtService jwtService;
 
     @PostMapping("/header")
-    private HeaderCreateResponse createHeader(HttpServletRequest request, @RequestBody HeaderRequestDto headerRequestDto) {
+    public HeaderCreateResponse createHeader(HttpServletRequest request, @RequestBody HeaderRequestDto headerRequestDto) {
         String token = request.getHeader("Authorization");
         Long userId = jwtService.getUserIdFromToken(token);
 
@@ -34,12 +34,12 @@ public class PlanController {
     }
 
     @PostMapping("/day/{headerId}")
-    private void createPlan(@RequestBody PlanRequestDto planRequestDto, @PathVariable Long headerId) {
+    public void createPlan(@RequestBody PlanRequestDto planRequestDto, @PathVariable Long headerId) {
         commandPlanService.creatPlan(planRequestDto, headerId);
     }
 
     @PutMapping("/day/{headerId}")
-    private void updatePlan(
+    public void updatePlan(
             @PathVariable(name = "headerId") Long headerId,
             @RequestBody PlanRequestDto planRequestDto
     ) {
@@ -47,17 +47,17 @@ public class PlanController {
     }
 
     @DeleteMapping("/day/{headerId}")
-    private void deletePlan(@PathVariable(name = "headerId") Long headerId) {
+    public void deletePlan(@PathVariable(name = "headerId") Long headerId) {
         commandPlanService.deletePlan(headerId);
     }
 
     @GetMapping("/day/{headerId}")
-    private List<PlanResponseDto> readPlan(@PathVariable(name = "headerId") Long headerId) {
+    public List<PlanResponseDto> readPlan(@PathVariable(name = "headerId") Long headerId) {
         return queryPlanService.readPlan(headerId);
     }
 
     @GetMapping("/header")
-    private List<HeaderResponseDto> readHeader(HttpServletRequest request) {
+    public List<HeaderResponseDto> readHeader(HttpServletRequest request) {
         String token = request.getHeader("Authorization");
         Long userId = jwtService.getUserIdFromToken(token);
 
@@ -65,7 +65,7 @@ public class PlanController {
     }
 
     @PutMapping("/S3/{headerId}")
-    private void updateHeaderImg(@RequestBody HeaderRequestDto headerRequestDto, @PathVariable(name = "headerId") Long headerId) {
+    public void updateHeaderImg(@RequestBody HeaderRequestDto headerRequestDto, @PathVariable(name = "headerId") Long headerId) {
         commandPlanService.updateHeaderImg(headerRequestDto, headerId);
     }
 }

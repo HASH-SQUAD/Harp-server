@@ -43,17 +43,17 @@ public class PostController {
     }
 
     @GetMapping("/All")
-    private List<PostListResponse> readPost() {
+    public List<PostListResponse> readPost() {
         return queryPostService.readAllPost();
     }
 
     @GetMapping("/{postId}")
-    private Post read(@PathVariable Long postId) {
+    public Post read(@PathVariable Long postId) {
         return queryPostService.readPostById(postId);
     }
 
     @DeleteMapping("/{postId}")
-    private void delete(@PathVariable Long postId) {
+    public void delete(@PathVariable Long postId) {
         commandPostService.deletePost(postId, authReader.getCurrentUser());
     }
 
